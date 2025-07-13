@@ -17,7 +17,6 @@ userRouter.post("/Auth/signUp", async function (req, res) {
     })
   }
   const { firstName, lastName, email, password } = validateData.data;
-  console.log(firstName,lastName,email,password)
   if (!firstName || !lastName || !email || !password) {
     res.status(404).json({
       message: "The data is not found field is missing",
@@ -101,6 +100,16 @@ userRouter.post('/Auth/signIn',async function(req,res){
   } 
 
 })
+
+userRouter.get("/logout", (req, res) => {
+  res.clearCookie('token', {
+  httpOnly: true,
+  secure: false,       // must match!
+  sameSite: 'lax',
+  path: '/',           // default is '/', safe to include
+});
+  res.status(200).json({ message: "Logged out successfully" });
+});
 
 userRouter.post("/createTodo",authentication,async function(req,res){
   const userId = req.userId
