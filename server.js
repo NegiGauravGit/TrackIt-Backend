@@ -18,8 +18,8 @@ app.use(cors({
 app.use('/user', userRouter);
 
 async function main() {
-  await mongoose.connect("mongodb+srv://gauravsinghnegi54:DONjii@cluster0.notds.mongodb.net/Todos");
+  await mongoose.connect(process.env.DB_CONNECTION_URL);
   console.log("Connected to MongoDB");
-  app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+  app.listen(process.env.PORT, () => console.log(`Server running on http://localhost:${process.env.PORT}`));
 }
 main();
